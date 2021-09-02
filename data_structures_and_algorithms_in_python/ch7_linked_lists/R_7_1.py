@@ -9,7 +9,7 @@ Moving the ptr from the head to the outer of the list (None = tail.next), and on
 Notes and review:
 - Dummy Node always come in handy
 - while ptr >> while ptr.next
-- think after ptr.next! Do tou need conditions?
+- think after ptr.next! Do you need conditions?
 - explicit return always win, return prev.element >> return prev.next.element, or so
 - single return >> double return
 """
