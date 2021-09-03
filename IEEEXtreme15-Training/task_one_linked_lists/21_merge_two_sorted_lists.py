@@ -9,7 +9,7 @@ That's because dummy and ptr are the same object before the new assignment of th
 So, any modification (except an assignment) on the ptr will affect on the dummy node.
 
 TODO
-    TEST
+    REVIEW
 """
 from typing import Optional
 

@@ -8,9 +8,7 @@ You may assume the two numbers do not contain any leading zero, except the numbe
 Review and Notes:
 
 TODO
-    Complete a solution
     REVIEW
-    TEST
 """
 
 from typing import Optional
@@ -43,24 +41,27 @@ class Solution:
             curr = curr.next
         return dummy.next
 
-
     def addTwoNumbers2(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
         dummy = curr = ListNode(0)
         carry = 0
         while l1 or l2:
             if l1 and l2:
-                val, carry = ((l1.val + l2.val + carry) % 10), ((l1.val + l2.val) // 10)
-                curr.next = ListNode(val)
+                sum = l1.val + l2.val + carry
+                l1 = l1.next
+                l2 = l2.next
             elif not l1 and l2:
-                val, carry = ((l2.val + carry) % 10), (l2.val // 10)
-                curr.next = ListNode(val)
-            elif not l2 and l1:
-                val, carry = ((l1.val + carry) % 10), (l1.val // 10)
-                curr.next = ListNode(val)
+                sum = l2.val + carry
+                l2 = l2.next
+            else:
+                sum = l1.val + carry
+                l1 = l1.next
+
+            val, carry = (sum % 10), (sum // 10)
+            curr.next = ListNode(val)
             curr = curr.next
 
         if carry:
-            curr.next = ListNode(carry)
+            curr.next = ListNode(1)
         return dummy.next
 
 
