@@ -23,7 +23,7 @@ notes and review:
 - Merge sort
     - divide and conquer, buddy
     - divide until each sublist contains one element, then return it to be merged.
-    - merging technique:
+    - merging technique: (3 whiles, 2 of them being executed)
         - step 1: compare elements in each array, and move pointers until you reach the end of one of them
             - maintain pointer for each array (left, right, original)
             - pick the smaller element and place it in the original pointer
