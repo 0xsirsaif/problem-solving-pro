@@ -41,8 +41,8 @@ class Solution:
         return _binary_search(nums, 0, len(nums) - 1, target)
 
     # not bad, but...
-    def searchRange(self, nums: List[int], target: int) -> List[int]:
-        def _first_index(arr):
+    def searchRange(self, nums: List[int], target: int) -> List[int]:   # O(2 log n)
+        def _first_index(arr):  # O(log n)
             low, high = 0, len(arr) - 1
             answer = -1
             while low <= high:
@@ -54,7 +54,7 @@ class Solution:
                     low = mid + 1
             return answer
 
-        def _last_index(arr):
+        def _last_index(arr):  # O(log n)
             low, high = 0, len(arr) - 1
             answer = -1
             while low <= high:
