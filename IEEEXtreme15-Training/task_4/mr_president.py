@@ -39,7 +39,7 @@ Constraints:
     1 <= C <= 106
 
 TODO
-    COMPLETE THE SOLUTION
+    Wrong Answers?
     REVIEW
 """
 
@@ -51,28 +51,49 @@ def take_inputs():
     return kruskal(n, edge_list, k)
 
 
-def kruskal(num_nodes, edges, k):
-    def find_parent(i):
-        if i != parent[i]:
-            parent[i] = find_parent(parent[i])
-        return parent[i]
+def kruskal(num_nodes, edges_list, cost):
+    def _sort_edges(edges):
+        return sorted(edges, key=lambda edge: edge[2])
 
-    edges = sorted(edges, key=lambda edge: edge[2])
-    parent = [x for x in range(num_nodes + 1)]
+    def _construct_union_find(n):
+        parent = [0] * (n + 1)
+        for i in range(1, n+1):
+            parent[i] = i
+        return parent
 
-    minimum_spanning_tree_cost = 0
-    minimum_spanning_tree = []
+    def _find(node):
+        root = node
+        while root != parent_list[node]:
+            root = parent_list[node]
 
-    for edge in edges:
-        parent_a = find_parent(edge[0])
-        parent_b = find_parent(edge[1])
-        new_cost = minimum_spanning_tree_cost + edge[2]
-        if parent_a != parent_b and new_cost < k:
-            minimum_spanning_tree_cost += edge[2]
-            minimum_spanning_tree.append(edge)
-            parent[parent_a] = parent_b
+        # path compression
+        while node != root:
+            next_node = parent_list[node]
+            parent_list[node] = root
+            node = next_node
 
-    return len(minimum_spanning_tree)
+        return root
+
+    def _unify(start, end):
+        root1, root2 = _find(start), _find(end)
+        if root1 == root2:
+            return
+        parent_list[root1] = root2
+
+    parent_list = _construct_union_find(num_nodes)
+
+    sorted_edges = _sort_edges(edges_list)
+    working_cost = 0
+    roads = []
+    for edge in sorted_edges:
+        print(working_cost)
+        node1, node2, weight = edge
+        if _find(node1) != _find(node2) and working_cost <= cost:
+            working_cost += weight
+            _unify(node1, node2)
+            roads.append(edge)
+
+    return len(roads)
 
 
 print(take_inputs())
