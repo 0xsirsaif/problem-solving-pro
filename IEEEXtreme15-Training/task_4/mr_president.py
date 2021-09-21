@@ -86,10 +86,9 @@ def kruskal(num_nodes, edges_list, cost):
     working_cost = 0
     roads = []
     for edge in sorted_edges:
-        print(working_cost)
         node1, node2, weight = edge
+        working_cost += weight
         if _find(node1) != _find(node2) and working_cost <= cost:
-            working_cost += weight
             _unify(node1, node2)
             roads.append(edge)
 
