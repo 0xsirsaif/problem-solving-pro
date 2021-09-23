@@ -15,14 +15,29 @@ TODO:
     UNITTEST
 """
 
-memo = {}
-
 
 def num_of_ways(matrix, i, j, ways):
+    print(i, j)
     if (i == len(matrix) - 1) or (j == len(matrix) - 1):
         return 1
     ways += num_of_ways(matrix, i + 1, j, ways) + num_of_ways(matrix, i, j + 1, ways)
     return ways
 
 
-print(num_of_ways([[0, 1, 2], [3, 4, 5], [6, 7, 8]], 0, 0, 0))
+def memo_num_of_ways(matrix, i, j):
+    print(i, j)
+    if (i == len(matrix) - 1) or (j == len(matrix) - 1):
+        memo[i][j] += 1
+    elif memo[i][j] == 0:
+        memo[i][j] += memo_num_of_ways(matrix, i + 1, j) + memo_num_of_ways(matrix, i, j + 1)
+
+    return memo[i][j]
+
+
+n_n_matrix = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
+# print(num_of_ways(n_n_matrix, 0, 0, 0))
+
+n = len(n_n_matrix)
+memo = [[0] * n] * n
+print(memo_num_of_ways(n_n_matrix, 0, 0))
+print(memo)
