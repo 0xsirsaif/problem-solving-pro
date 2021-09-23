@@ -15,6 +15,8 @@ TODO:
     UNITTEST
 """
 
+memo = {}
+
 
 def num_of_ways(matrix, i, j, ways):
     if (i == len(matrix) - 1) or (j == len(matrix) - 1):
