@@ -1,3 +1,11 @@
+"""
+Optimizations?
+    - instead of a function to build adjacency list, use comprehension?
+    - dfs copy a lot of data [visited_nodes, graph, result]
+        - make use of the outer variables? -> disadvantage: function side effect
+
+"""
+
 from typing import List, Dict
 
 
@@ -11,14 +19,11 @@ class Solution:
             return _adjacency_list
 
         def _dfs(node: int, visited_nodes: List, graph: Dict, result: List):
-            print(node)
             for j in graph[node]:
                 if visited_nodes[j] is False:
-                    print("1111")
                     _dfs(j, visited_nodes, graph, result)
                     visited_nodes[j] = True
                 if result[j] is True:
-                    print("2222")
                     result[j] = False
             return visited_nodes
 
