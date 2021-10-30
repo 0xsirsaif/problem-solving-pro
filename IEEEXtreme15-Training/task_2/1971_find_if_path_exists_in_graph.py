@@ -28,7 +28,6 @@ class Solution:
             return adjacency_list
 
         def _dfs(at):
-            print(at)
             if at == end:
                 return True
             if not is_visited[at]:
@@ -40,7 +39,6 @@ class Solution:
             return False
 
         graph = _build_adjacency_list(n, edges)
-        print(graph)
         is_visited = [False] * n
         result = _dfs(start)
         return result
