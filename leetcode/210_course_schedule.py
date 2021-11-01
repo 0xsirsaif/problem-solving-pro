@@ -1,23 +1,17 @@
 """
-Kahn's Algorithm
-TODO:
-- Memory optimization
--
+
 """
 
 from typing import List, Dict
-from collections import deque
+from collections import deque, defaultdict
 
 
 class Solution:
-    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        def _build_adjacency_list(length: int, edge_list: List[List[int]]) -> Dict:
-            _adjacency_list = {i: [] for i in range(length)}
-            for edge in edge_list:
-                _adjacency_list[edge[1]].append(edge[0])
-            return _adjacency_list
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        adjacency_list = defaultdict(set)
 
-        adjacency_list = _build_adjacency_list(numCourses, prerequisites)
+        for i, j in prerequisites:
+            adjacency_list[j].add(i)
 
         # build in-degree array
         in_degrees = [0] * numCourses
@@ -42,10 +36,11 @@ class Solution:
                     queue.append(child)
             index += 1
 
+        # check for cyclic path
         if index != numCourses:
-            return False
-        return True
+            return []
+        return order
 
 
 S = Solution()
-print(S.canFinish(numCourses=2, prerequisites=[[1, 0]]))
+print(S.findOrder(numCourses=2, prerequisites=[[1, 0]]))
