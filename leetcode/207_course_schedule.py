@@ -2,7 +2,7 @@
 Kahn's Algorithm
 TODO:
 - Memory optimization
--
+- the secret of the index mechanism
 """
 
 from typing import List, Dict
