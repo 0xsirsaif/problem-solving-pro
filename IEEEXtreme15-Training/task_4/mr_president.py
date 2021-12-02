@@ -53,7 +53,7 @@ def take_inputs():
 
 def kruskal(num_nodes, edges_list, cost):
     def _sort_edges(edges):
-        return sorted(edges, key=lambda edge: edge[2])
+        return sorted(edges, key=lambda _edge: _edge[2])
 
     def _construct_union_find(n):
         parent = [0] * (n + 1)
@@ -83,6 +83,7 @@ def kruskal(num_nodes, edges_list, cost):
     parent_list = _construct_union_find(num_nodes)
 
     sorted_edges = _sort_edges(edges_list)
+    print(">>>", sorted_edges)
     working_cost = 0
     roads = []
     for edge in sorted_edges:
