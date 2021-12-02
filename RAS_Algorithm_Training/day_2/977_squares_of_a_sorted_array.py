@@ -119,8 +119,85 @@ class Solution:
 
             return sorted_array
 
+        # F**k
+        def __partition(array, start, end):
+            pivot = array[start]
+            low = start + 1
+            high = end
+
+            while True:
+                # If the current value we're looking at is larger than the pivot
+                # it's in the right place (right side of pivot) and we can move left,
+                # to the next element.
+                # We also need to make sure we haven't surpassed the low pointer, since that
+                # indicates we have already moved all the elements to their correct side of the pivot
+                while low <= high and array[high] >= pivot:
+                    high = high - 1
+
+                # Opposite process of the one above
+                while low <= high and array[low] <= pivot:
+                    low = low + 1
+
+                # We either found a value for both high and low that is out of order
+                # or low is higher than high, in which case we exit the loop
+                if low <= high:
+                    array[low], array[high] = array[high], array[low]
+                    # The loop continues
+                else:
+                    # We exit out of the loop
+                    break
+
+            array[start], array[high] = array[high], array[start]
+
+            return high
+
+        def _quick_sort(array, start, end):
+            if start >= end:
+                return
+
+            p = __partition(array, start, end)
+            _quick_sort(array, start, p - 1)
+            _quick_sort(array, p + 1, end)
+
+            return array
+
+        def __counting_sort(array, place):
+            size = len(array)
+            output = [0] * size
+            count = [0] * 10
+
+            # Calculate count of elements
+            for i in range(0, size):
+                index = array[i] // place
+                count[index % 10] += 1
+
+            # Calculate cumulative count
+            for i in range(1, 10):
+                count[i] += count[i - 1]
+
+            # Place the elements in sorted order
+            i = size - 1
+            while i >= 0:
+                index = array[i] // place
+                output[count[index % 10] - 1] = array[i]
+                count[index % 10] -= 1
+                i -= 1
+
+            for i in range(0, size):
+                array[i] = output[i]
+
+        # Main function to implement radix sort
+        def _radix_sort(array):
+            max_element = max(array)
+
+            # Apply counting sort to sort elements based on place value.
+            place = 1
+            while max_element // place > 0:
+                __counting_sort(array, place)
+                place *= 10
+
         squared_nums = [i ** 2 for i in nums]
-        return _counting_sort(squared_nums)
+        return _quick_sort(squared_nums, 0, len(squared_nums)-1)
 
 
 S = Solution()
