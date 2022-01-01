@@ -23,10 +23,10 @@ class Solution:
                     ptr = num * multi
                     multi += 1
 
-        count = len([i for i in composite_nums[2:n] if i])
-        return count
+        nums = [idx for idx in range(2, n) if composite_nums[idx]]
+        return nums
 
 
 
 S = Solution()
-print(S.countPrimes(30))
+print(S.countPrimes(int(input())))
